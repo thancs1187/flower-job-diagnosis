@@ -1,0 +1,273 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
+        "Yu Gothic",
+        YuGothic,
+        sans-serif;
+
+    background: #fff8f5;
+    color: #444;
+}
+
+.container {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.screen {
+    display: none;
+    min-height: 90vh;
+    text-align: center;
+    padding: 40px 10px;
+}
+
+.screen.active {
+    display: block;
+}
+
+
+/* ----------------
+   トップ
+---------------- */
+
+.flower-icon {
+    font-size: 70px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 34px;
+    line-height: 1.4;
+    margin: 10px 0 25px;
+}
+
+.lead {
+    font-size: 17px;
+    line-height: 1.9;
+}
+
+.type-preview {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+
+    margin: 30px 0;
+}
+
+.type-preview span {
+    background: white;
+    border-radius: 30px;
+    padding: 10px 16px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+}
+
+.main-btn {
+    display: inline-block;
+
+    width: 100%;
+    max-width: 400px;
+
+    padding: 17px 20px;
+
+    border: none;
+    border-radius: 50px;
+
+    background: #e99a9a;
+    color: white;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.main-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.small-text {
+    font-size: 13px;
+    color: #999;
+    margin-top: 15px;
+}
+
+
+/* ----------------
+   質問
+---------------- */
+
+.progress-area {
+    margin-bottom: 35px;
+}
+
+.progress-text {
+    text-align: right;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #999;
+}
+
+.progress-bar {
+    height: 8px;
+    background: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#progress {
+    height: 100%;
+    width: 0%;
+    background: #e99a9a;
+    transition: width 0.3s;
+}
+
+.question-card {
+    background: white;
+
+    border-radius: 25px;
+
+    padding: 30px 20px;
+
+    box-shadow: 0 5px 25px rgba(0,0,0,0.06);
+}
+
+.question-card h2 {
+    font-size: 22px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.answer-btn {
+    display: block;
+
+    width: 100%;
+
+    margin: 12px 0;
+    padding: 16px;
+
+    background: #fff;
+
+    border: 2px solid #eee;
+    border-radius: 15px;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.answer-btn:hover {
+    border-color: #e99a9a;
+    background: #fff7f7;
+}
+
+
+/* ----------------
+   結果
+---------------- */
+
+.result-label {
+    color: #999;
+    margin-bottom: 10px;
+}
+
+.result-icon {
+    font-size: 80px;
+    margin: 10px;
+}
+
+#result-title {
+    font-size: 30px;
+}
+
+#result-description {
+    font-size: 16px;
+    line-height: 1.9;
+    margin: 25px 0;
+}
+
+.job-box {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 30px 0;
+}
+
+.job-box h3 {
+    margin-top: 0;
+}
+
+.job-box p {
+    line-height: 1.8;
+}
+
+.sub-btn {
+    display: block;
+
+    width: 100%;
+    max-width: 400px;
+
+    margin: 15px auto;
+
+    padding: 14px;
+
+    background: transparent;
+
+    border: none;
+
+    color: #999;
+
+    cursor: pointer;
+
+    font-size: 14px;
+}
+
+
+/* ----------------
+   スマホ
+---------------- */
+
+@media (max-width: 500px) {
+
+    .screen {
+        padding-top: 25px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .lead {
+        font-size: 15px;
+    }
+
+    .question-card {
+        padding: 25px 15px;
+    }
+
+    .question-card h2 {
+        font-size: 19px;
+    }
+
+    .answer-btn {
+        font-size: 15px;
+        padding: 15px 10px;
+    }
+}

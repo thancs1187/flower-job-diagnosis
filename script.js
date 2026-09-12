@@ -1,475 +1,444 @@
-// ==============================
-// 質問データ
-// ==============================
+// ================================
+// 花の仕事診断
+// ================================
 
-const questions = [
-
-    {
-        question: "予定を立てて、その通りに進めるのは得意？",
-        answers: [
-            { text: "かなり得意！", scores: { route: 3, management: 2 } },
-            { text: "まあまあ得意", scores: { route: 2 } },
-            { text: "どちらとも言えない", scores: {} },
-            { text: "その時の気分で動きたい", scores: { creative: 2 } }
-        ]
-    },
-
-    {
-        question: "車を運転して、いろんな場所を回る仕事は？",
-        answers: [
-            { text: "楽しそう！", scores: { route: 3, drive: 2 } },
-            { text: "まあ興味ある", scores: { route: 2 } },
-            { text: "ちょっと苦手かも", scores: { manufacturing: 2 } },
-            { text: "できれば避けたい", scores: { manufacturing: 3 } }
-        ]
-    },
-
-    {
-        question: "人と話したり、コミュニケーションを取るのは？",
-        answers: [
-            { text: "好き！", scores: { communication: 3 } },
-            { text: "普通かな", scores: { communication: 1 } },
-            { text: "少し苦手", scores: { solo: 2 } },
-            { text: "かなり苦手", scores: { solo: 3 } }
-        ]
-    },
-
-    {
-        question: "決められた手順やルールを守るのは？",
-        answers: [
-            { text: "得意！", scores: { quality: 2, management: 2 } },
-            { text: "苦ではない", scores: { quality: 1 } },
-            { text: "あまり好きじゃない", scores: { creative: 2 } },
-            { text: "自由にやりたい！", scores: { creative: 3 } }
-        ]
-    },
-
-    {
-        question: "小さな違いやミスによく気づく？",
-        answers: [
-            { text: "めっちゃ気づく", scores: { quality: 3 } },
-            { text: "結構気づく", scores: { quality: 2 } },
-            { text: "あまり気づかない", scores: { creative: 1 } },
-            { text: "気にしないタイプ", scores: { route: 1 } }
-        ]
-    },
-
-    {
-        question: "同じような作業をコツコツ続けるのは？",
-        answers: [
-            { text: "得意！", scores: { manufacturing: 3, craft: 2 } },
-            { text: "まあ得意", scores: { manufacturing: 2 } },
-            { text: "ちょっと苦手", scores: { route: 2 } },
-            { text: "飽きちゃう", scores: { creative: 2 } }
-        ]
-    },
-
-    {
-        question: "「もっとこうしたら良くなるのに」と考えることがある？",
-        answers: [
-            { text: "よくある！", scores: { management: 3, creative: 1 } },
-            { text: "たまにある", scores: { management: 2 } },
-            { text: "あまりない", scores: {} },
-            { text: "言われたことをやる方が好き", scores: { craft: 1 } }
-        ]
-    },
-
-    {
-        question: "花の色や形のバランスを見るのは好き？",
-        answers: [
-            { text: "大好き！", scores: { design: 3, creative: 2 } },
-            { text: "好き", scores: { design: 2 } },
-            { text: "普通", scores: {} },
-            { text: "あまり興味ない", scores: { route: 1 } }
-        ]
-    },
-
-    {
-        question: "仕事では「早さ」と「丁寧さ」、どちらを重視する？",
-        answers: [
-            { text: "早さ！", scores: { route: 2, management: 2 } },
-            { text: "どちらかと言えば早さ", scores: { route: 1 } },
-            { text: "どちらかと言えば丁寧さ", scores: { quality: 2 } },
-            { text: "絶対に丁寧さ！", scores: { quality: 3, craft: 1 } }
-        ]
-    },
-
-    {
-        question: "予定変更があったとき、すぐ対応できる？",
-        answers: [
-            { text: "全然大丈夫！", scores: { flexibility: 3, route: 2 } },
-            { text: "まあ対応できる", scores: { flexibility: 2 } },
-            { text: "ちょっと苦手", scores: { quality: 1 } },
-            { text: "かなり苦手", scores: { craft: 1 } }
-        ]
-    },
-
-    {
-        question: "仕事をするなら、どちらが好き？",
-        answers: [
-            { text: "いろんな人と関わりたい", scores: { communication: 3 } },
-            { text: "少人数で働きたい", scores: { manufacturing: 2 } },
-            { text: "一人で集中したい", scores: { solo: 3, craft: 2 } },
-            { text: "どちらでもOK", scores: {} }
-        ]
-    },
-
-    {
-        question: "完成した商品の「見た目」にこだわる方？",
-        answers: [
-            { text: "かなりこだわる！", scores: { design: 3, craft: 2 } },
-            { text: "そこそこ気にする", scores: { design: 2 } },
-            { text: "最低限でOK", scores: { management: 1 } },
-            { text: "見た目より効率！", scores: { route: 2 } }
-        ]
-    },
-
-    {
-        question: "誰かに「ありがとう」と言われる仕事って魅力的？",
-        answers: [
-            { text: "めっちゃ魅力的！", scores: { communication: 3 } },
-            { text: "まあ嬉しい", scores: { communication: 1 } },
-            { text: "あまり気にしない", scores: { solo: 1 } },
-            { text: "自分が納得できればOK", scores: { craft: 2 } }
-        ]
-    },
-
-    {
-        question: "自分で花を組み合わせて商品を作るなら？",
-        answers: [
-            { text: "センスを活かしたい！", scores: { design: 3, creative: 3 } },
-            { text: "きれいに作りたい", scores: { craft: 3 } },
-            { text: "効率よくたくさん作りたい", scores: { manufacturing: 3, management: 2 } },
-            { text: "誰かと相談しながら作りたい", scores: { communication: 2 } }
-        ]
-    },
-
-    {
-        question: "一番やってみたいのは？",
-        answers: [
-            { text: "🚚 お店を回って花を届ける", scores: { route: 5 } },
-            { text: "🤝 お店の人と話しながら売場を作る", scores: { route: 4, communication: 3 } },
-            { text: "💐 花束や商品を作る", scores: { manufacturing: 5 } },
-            { text: "🎨 センスを活かして花をデザインする", scores: { manufacturing: 4, design: 4 } }
-        ]
-    }
-
-];
+// 4つの実際の求人ページ
+const JOB_LINKS = {
+  site_transport: "https://thancs.net/recruiment_list/2540/?2026_09_2",
+  delivery: "https://thancs.net/recruiment_list/2326/?2026_09_2",
+  buyer: "https://thancs.net/recruiment_list/2349/?2026_09_2",
+  production: "https://thancs.net/recruiment_list/2330/?2026_09_2"
+};
 
 
-// ==============================
-// 結果タイプ
-// ==============================
+// ================================
+// 診断結果
+// ================================
 
 const results = {
 
-    route_drive: {
-        icon: "🚚",
-        title: "運行・効率タイプ",
-        description:
-            "段取りを考えながら、テキパキ動くのが得意なあなた。効率よく仕事を進める力が武器になりそう！",
-        job:
-            "ルート配送・店舗への商品納品・売場メンテナンスなど",
-        link:
-            "#"
-    },
+  operation: {
+    icon: "🚚",
+    title: "段取りマスタータイプ",
+    catch: "効率よく動くことが得意！",
+    description:
+      "時間や順番を考えながら、テキパキ仕事を進めるのが得意なタイプ。周りの状況を見ながら、次に何をするかを考えられるあなたは、現場をスムーズに動かす力があります。",
+    jobKey: "site_transport",
+    jobName: "敷地内運搬スタッフ",
+    jobDescription: "花や商品の運搬、荷下ろし、在庫管理など、現場を支える仕事"
+  },
 
-    route_communication: {
-        icon: "🤝",
-        title: "店舗コミュニケーションタイプ",
-        description:
-            "人と話すことが好きで、相手の気持ちを考えられるあなた。店舗の方との関係づくりで力を発揮できそう！",
-        job:
-            "店舗巡回・売場提案・店舗スタッフとのコミュニケーションなど",
-        link:
-            "#"
-    },
+  communication: {
+    icon: "🤝",
+    title: "お店のパートナータイプ",
+    catch: "人と話すことが好き！",
+    description:
+      "人とコミュニケーションを取ることが得意なタイプ。お店のスタッフと話したり、相手の希望を聞きながら仕事をすることにやりがいを感じられます。",
+    jobKey: "delivery",
+    jobName: "スーパーへのルート配送・売場管理スタッフ",
+    jobDescription: "スーパーへの配送から、花の陳列・売場づくりまで担当する仕事"
+  },
 
-    route_management: {
-        icon: "📋",
-        title: "商品・売場管理タイプ",
-        description:
-            "細かいところまでよく見て、改善を考えられるあなた。売場をより良くする仕事に向いていそう！",
-        job:
-            "商品管理・売場管理・在庫管理・売場改善など",
-        link:
-            "#"
-    },
+  store: {
+    icon: "🛒",
+    title: "売場プロデューサータイプ",
+    catch: "売場を見るのが得意！",
+    description:
+      "『どうしたらもっと商品が見やすくなる？』『どこに置いたら手に取ってもらえる？』と考えるのが得意なタイプ。花と売場の両方を楽しめるあなたに向いています。",
+    jobKey: "delivery",
+    jobName: "スーパーへのルート配送・売場管理スタッフ",
+    jobDescription: "配送だけでなく、花の陳列や売場づくりにも関わる仕事"
+  },
 
-    manufacturing_craft: {
-        icon: "💐",
-        title: "商品制作タイプ",
-        description:
-            "コツコツ丁寧に作業することが得意なあなた。手を動かして商品を作る仕事で力を発揮できそう！",
-        job:
-            "花束制作・パック花制作・商品加工など",
-        link:
-            "#"
-    },
+  buyer: {
+    icon: "🌸",
+    title: "花の目利きタイプ",
+    catch: "花を見る目には自信あり！",
+    description:
+      "商品の違いや魅力を見つけるのが得意なタイプ。『これは良い花だな』『この花を使ってみたい』という感覚を大切にできるあなたは、花の仕入れや商品選びで力を発揮できます。",
+    jobKey: "buyer",
+    jobName: "生花バイヤー",
+    jobDescription: "市場で花を選び、自分の目利きで商品を仕入れる仕事"
+  },
 
-    manufacturing_design: {
-        icon: "🎨",
-        title: "アレンジ・センス特化タイプ",
-        description:
-            "色や形のバランスを見るのが得意なあなた。あなたのセンスを花の商品に活かせそう！",
-        job:
-            "アレンジ制作・花束制作・商品企画など",
-        link:
-            "#"
-    },
+  production: {
+    icon: "⚙️",
+    title: "現場コントローラータイプ",
+    catch: "全体を見るのが得意！",
+    description:
+      "一つの作業だけでなく、全体の流れを見ながら動くのが得意なタイプ。『今どこが忙しい？』『次は何をすればいい？』と考えながら、現場を動かす力があります。",
+    jobKey: "production",
+    jobName: "お花の生産管理スタッフ",
+    jobDescription: "生産ライン全体を見ながら、製造現場を管理する仕事"
+  },
 
-    manufacturing_quality: {
-        icon: "🔍",
-        title: "品質・こだわりタイプ",
-        description:
-            "細かいところまで妥協せず、丁寧に仕上げるあなた。品質を守る仕事で才能を発揮できそう！",
-        job:
-            "商品チェック・品質管理・制作・加工など",
-        link:
-            "#"
-    }
+  quality: {
+    icon: "🔍",
+    title: "品質チェックタイプ",
+    catch: "細かいところまで見逃さない！",
+    description:
+      "丁寧に確認することが得意なタイプ。商品の状態や作業のミスなど、小さな違いにも気づけるあなたは、品質を守る仕事で力を発揮できます。",
+    jobKey: "production",
+    jobName: "お花の生産管理スタッフ",
+    jobDescription: "商品の品質や生産工程をチェックし、現場を支える仕事"
+  }
 
 };
 
 
-// ==============================
-// 診断処理
-// ==============================
+// ================================
+// 15問の診断
+// ================================
+
+const questions = [
+
+  {
+    question: "予定を立てて行動するのは？",
+    answers: [
+      { text: "かなり得意", type: "operation" },
+      { text: "まあまあ得意", type: "store" },
+      { text: "その場で考える", type: "communication" },
+      { text: "あまり気にしない", type: "buyer" }
+    ]
+  },
+
+  {
+    question: "人と話すことは？",
+    answers: [
+      { text: "かなり好き", type: "communication" },
+      { text: "どちらかというと好き", type: "store" },
+      { text: "必要なら話せる", type: "operation" },
+      { text: "一人の方が楽", type: "quality" }
+    ]
+  },
+
+  {
+    question: "花屋さんやスーパーで花を見ると？",
+    answers: [
+      { text: "つい売場を見てしまう", type: "store" },
+      { text: "花の種類が気になる", type: "buyer" },
+      { text: "値段や売れ方が気になる", type: "store" },
+      { text: "あまり気にしない", type: "operation" }
+    ]
+  },
+
+  {
+    question: "仕事で大切だと思うのは？",
+    answers: [
+      { text: "スピード", type: "operation" },
+      { text: "人との関係", type: "communication" },
+      { text: "見た目やセンス", type: "buyer" },
+      { text: "正確さ", type: "quality" }
+    ]
+  },
+
+  {
+    question: "何かミスを見つけたら？",
+    answers: [
+      { text: "すぐに直す", type: "quality" },
+      { text: "原因を考える", type: "production" },
+      { text: "周りに伝える", type: "communication" },
+      { text: "次から気をつける", type: "operation" }
+    ]
+  },
+
+  {
+    question: "複数の仕事を頼まれたら？",
+    answers: [
+      { text: "優先順位を決める", type: "operation" },
+      { text: "一つずつ確実にやる", type: "quality" },
+      { text: "周りと相談する", type: "communication" },
+      { text: "とりあえず始める", type: "buyer" }
+    ]
+  },
+
+  {
+    question: "売場を見るとき、気になるのは？",
+    answers: [
+      { text: "商品の並び方", type: "store" },
+      { text: "花の状態", type: "quality" },
+      { text: "お客さんの動き", type: "store" },
+      { text: "花そのものの魅力", type: "buyer" }
+    ]
+  },
+
+  {
+    question: "新しい花を見つけたら？",
+    answers: [
+      { text: "どこで売れるか考える", type: "store" },
+      { text: "どんな花なのか調べる", type: "buyer" },
+      { text: "誰かに教えたくなる", type: "communication" },
+      { text: "特に気にしない", type: "operation" }
+    ]
+  },
+
+  {
+    question: "決められた時間までに仕事を終えるなら？",
+    answers: [
+      { text: "計画を立てて進める", type: "operation" },
+      { text: "早めに終わらせたい", type: "operation" },
+      { text: "丁寧に確認しながら進める", type: "quality" },
+      { text: "状況を見ながら進める", type: "production" }
+    ]
+  },
+
+  {
+    question: "周りから言われることが多いのは？",
+    answers: [
+      { text: "しっかりしている", type: "quality" },
+      { text: "話しやすい", type: "communication" },
+      { text: "センスがいい", type: "buyer" },
+      { text: "行動が早い", type: "operation" }
+    ]
+  },
+
+  {
+    question: "チームで仕事をするときは？",
+    answers: [
+      { text: "全体の進み具合を見る", type: "production" },
+      { text: "周りと協力する", type: "communication" },
+      { text: "自分の仕事に集中する", type: "quality" },
+      { text: "効率よく進める", type: "operation" }
+    ]
+  },
+
+  {
+    question: "商品を作るなら？",
+    answers: [
+      { text: "きれいに仕上げたい", type: "quality" },
+      { text: "センスを活かしたい", type: "buyer" },
+      { text: "早くたくさん作りたい", type: "production" },
+      { text: "決められた通り正確に作りたい", type: "quality" }
+    ]
+  },
+
+  {
+    question: "仕事で困っている人がいたら？",
+    answers: [
+      { text: "声をかける", type: "communication" },
+      { text: "自分が手伝う", type: "communication" },
+      { text: "どうすれば効率的か考える", type: "operation" },
+      { text: "まず自分の仕事を終わらせる", type: "quality" }
+    ]
+  },
+
+  {
+    question: "『もっと良くできそう』と思ったら？",
+    answers: [
+      { text: "すぐ改善する", type: "production" },
+      { text: "アイデアを出す", type: "buyer" },
+      { text: "周りに相談する", type: "communication" },
+      { text: "ミスがないか確認する", type: "quality" }
+    ]
+  },
+
+  {
+    question: "あなたが一番やりがいを感じそうなのは？",
+    answers: [
+      { text: "現場をスムーズに動かす", type: "operation" },
+      { text: "人に喜んでもらう", type: "communication" },
+      { text: "魅力的な商品・売場を作る", type: "store" },
+      { text: "良い商品を見極める", type: "buyer" }
+    ]
+  }
+
+];
+
+
+// ================================
+// HTMLの要素を取得
+// ================================
+
+const startScreen = document.getElementById("start-screen");
+const startButton = document.getElementById("start-btn");
+
+const quizScreen = document.getElementById("quiz-screen");
+const questionNumber = document.getElementById("question-number");
+const questionText = document.getElementById("question");
+const answersContainer = document.getElementById("answers");
+const progressBar = document.getElementById("progress");
+
+const resultScreen = document.getElementById("result-screen");
+const resultIcon = document.getElementById("result-icon");
+const resultTitle = document.getElementById("result-title");
+const resultDescription = document.getElementById("result-description");
+const resultJob = document.getElementById("result-job");
+const jobLink = document.getElementById("job-link");
+
+const restartButton = document.getElementById("restart-btn");
+
+
+// ================================
+// 診断用データ
+// ================================
 
 let currentQuestion = 0;
 
-let scores = {};
+let scores = {
+  operation: 0,
+  communication: 0,
+  store: 0,
+  buyer: 0,
+  production: 0,
+  quality: 0
+};
 
 
-// 画面取得
-const startScreen =
-    document.getElementById("start-screen");
-
-const quizScreen =
-    document.getElementById("quiz-screen");
-
-const resultScreen =
-    document.getElementById("result-screen");
-
-
+// ================================
 // スタート
-document.getElementById("start-btn").addEventListener("click", () => {
+// ================================
 
-    currentQuestion = 0;
+startButton.addEventListener("click", () => {
 
-    scores = {};
+  currentQuestion = 0;
 
-    startScreen.classList.remove("active");
+  scores = {
+    operation: 0,
+    communication: 0,
+    store: 0,
+    buyer: 0,
+    production: 0,
+    quality: 0
+  };
 
-    quizScreen.classList.add("active");
+  startScreen.classList.remove("active");
+  resultScreen.classList.remove("active");
+  quizScreen.classList.add("active");
 
-    showQuestion();
+  showQuestion();
 
 });
 
 
-// 質問表示
+// ================================
+// 質問を表示
+// ================================
+
 function showQuestion() {
 
-    const q = questions[currentQuestion];
+  const current = questions[currentQuestion];
 
-    document.getElementById("question-number").textContent =
-        currentQuestion + 1;
+  questionNumber.textContent =
+    `Q${currentQuestion + 1} / ${questions.length}`;
 
-    document.getElementById("question").textContent =
-        q.question;
+  questionText.textContent = current.question;
 
+  answersContainer.innerHTML = "";
 
-    // プログレス
-    const progress =
-        ((currentQuestion + 1) / questions.length) * 100;
+  // 進捗バー
+  const progress =
+    ((currentQuestion) / questions.length) * 100;
 
-    document.getElementById("progress").style.width =
-        progress + "%";
-
-
-    const answers =
-        document.getElementById("answers");
-
-    answers.innerHTML = "";
+  progressBar.style.width = `${progress}%`;
 
 
-    q.answers.forEach(answer => {
+  // 選択肢を作成
+  current.answers.forEach((answer) => {
 
-        const button =
-            document.createElement("button");
+    const button = document.createElement("button");
 
-        button.className = "answer-btn";
+    button.textContent = answer.text;
 
-        button.textContent = answer.text;
+    button.classList.add("answer-btn");
 
+    button.addEventListener("click", () => {
 
-        button.addEventListener("click", () => {
+      scores[answer.type]++;
 
-            addScores(answer.scores);
+      currentQuestion++;
 
-            currentQuestion++;
+      if (currentQuestion < questions.length) {
 
+        showQuestion();
 
-            if (currentQuestion < questions.length) {
+      } else {
 
-                showQuestion();
+        showResult();
 
-            } else {
-
-                showResult();
-
-            }
-
-        });
-
-
-        answers.appendChild(button);
+      }
 
     });
+
+    answersContainer.appendChild(button);
+
+  });
 
 }
 
 
-// スコア追加
-function addScores(answerScores) {
-
-    Object.keys(answerScores).forEach(key => {
-
-        if (!scores[key]) {
-            scores[key] = 0;
-        }
-
-        scores[key] += answerScores[key];
-
-    });
-
-}
-
-
-// ==============================
-// 結果判定
-// ==============================
+// ================================
+// 診断結果を表示
+// ================================
 
 function showResult() {
 
-    quizScreen.classList.remove("active");
+  quizScreen.classList.remove("active");
+  resultScreen.classList.add("active");
 
-    resultScreen.classList.add("active");
-
-
-    // 配送 or 制作
-    const routeScore =
-        (scores.route || 0) +
-        (scores.drive || 0) +
-        (scores.communication || 0) +
-        (scores.management || 0);
+  // 進捗100%
+  progressBar.style.width = "100%";
 
 
-    const manufacturingScore =
-        (scores.manufacturing || 0) +
-        (scores.design || 0) +
-        (scores.craft || 0) +
-        (scores.quality || 0) +
-        (scores.creative || 0);
+  // 一番点数が高いタイプを取得
+  let resultType = Object.keys(scores).reduce((best, type) => {
 
-
-    let resultKey;
-
-
-    if (routeScore >= manufacturingScore) {
-
-        // 配送タイプ
-
-        const communication =
-            scores.communication || 0;
-
-        const management =
-            scores.management || 0;
-
-        const drive =
-            scores.drive || 0;
-
-
-        if (
-            communication >= management &&
-            communication >= drive
-        ) {
-
-            resultKey = "route_communication";
-
-        } else if (management >= drive) {
-
-            resultKey = "route_management";
-
-        } else {
-
-            resultKey = "route_drive";
-
-        }
-
-    } else {
-
-        // 制作タイプ
-
-        const design =
-            (scores.design || 0) +
-            (scores.creative || 0);
-
-        const craft =
-            scores.craft || 0;
-
-        const quality =
-            scores.quality || 0;
-
-
-        if (design >= craft && design >= quality) {
-
-            resultKey = "manufacturing_design";
-
-        } else if (quality >= craft) {
-
-            resultKey = "manufacturing_quality";
-
-        } else {
-
-            resultKey = "manufacturing_craft";
-
-        }
-
+    if (scores[type] > scores[best]) {
+      return type;
     }
 
+    return best;
 
-    const result =
-        results[resultKey];
+  }, Object.keys(scores)[0]);
 
 
-    document.getElementById("result-icon").textContent =
-        result.icon;
+  const result = results[resultType];
 
-    document.getElementById("result-title").textContent =
-        result.title;
+  const jobUrl = JOB_LINKS[result.jobKey];
 
-    document.getElementById("result-description").textContent =
-        result.description;
 
-    document.getElementById("result-job").textContent =
-        result.job;
+  // 結果表示
+  resultIcon.textContent = result.icon;
 
-    document.getElementById("job-link").href =
-        result.link;
+  resultTitle.textContent = result.title;
+
+  resultDescription.textContent =
+    `${result.catch} ${result.description}`;
+
+  resultJob.textContent =
+    `おすすめの仕事：${result.jobName}｜${result.jobDescription}`;
+
+
+  // 求人ページへのリンク
+  jobLink.href = jobUrl;
+
+  jobLink.target = "_blank";
+  jobLink.rel = "noopener noreferrer";
+
+  jobLink.textContent =
+    `「${result.jobName}」の求人を見る`;
 
 }
 
 
-// ==============================
+// ================================
 // もう一度診断
-// ==============================
+// ================================
 
-document.getElementById("restart-btn").addEventListener("click", () => {
+restartButton.addEventListener("click", () => {
 
-    resultScreen.classList.remove("active");
+  currentQuestion = 0;
 
-    startScreen.classList.add("active");
+  scores = {
+    operation: 0,
+    communication: 0,
+    store: 0,
+    buyer: 0,
+    production: 0,
+    quality: 0
+  };
+
+  resultScreen.classList.remove("active");
+  quizScreen.classList.remove("active");
+  startScreen.classList.add("active");
 
 });

@@ -618,7 +618,10 @@ function showResult() {
 // 求人ページクリック
 // ===============================
 
-jobLink.addEventListener("click", () => {
+jobLink.addEventListener("click", (event) => {
+
+  // いったんリンク先への移動を止める
+  event.preventDefault();
 
   const resultTitleText =
     resultTitle.textContent;
@@ -627,13 +630,30 @@ jobLink.addEventListener("click", () => {
     (item) => item.title === resultTitleText
   );
 
+  const url = jobLink.href;
+
   if (result) {
 
-    trackEvent("job_click", {
+    gtag("event", "job_click", {
+
       result_type: resultTitleText,
       job_key: result.jobKey,
-      job_name: result.jobName
+      job_name: result.jobName,
+
+      // GA4への送信が完了したら求人ページへ移動
+      event_callback: function () {
+        window.location.href = url;
+      },
+
+      // 念のため最大2秒で移動
+      event_timeout: 2000
+
     });
+
+  } else {
+
+    // 万が一結果が取得できなかった場合はそのまま移動
+    window.location.href = url;
 
   }
 
